@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import {View, Text,TextInput, TouchableOpacity, Alert, StyleSheet, } from "react-native";
 import api from "../axios/axios";
 
-export default function Login() {
+export default function Cadastro() {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    cpf:"",
+    data_nascimento:"",
+    name:""
   });
 
-  async function handleLogin() {
-    await api.postLogin(user).then(
+  async function handleCadastro() {
+    await api.postCadastro(user).then(
         (response)=>{
             console.log(response.data.message)
             Alert.alert(response.data.message)
@@ -22,6 +25,7 @@ export default function Login() {
   }
 
   return (
+
     <View style={styles.container}>
       <Text style={styles.title}>Faça Login</Text>
       <TextInput 
@@ -32,8 +36,15 @@ export default function Login() {
         setUser({...user, email: value});
         }}
         />
+        <TextInput placeholder="Cpf" value={user.cpf} onChangeText={(value) => {setUser({...user, cpf: value})}}/>
+      
+        <TextInput placeholder="Nome" value={user.name} onChangeText={(value) => {setUser({...user, name: value})}}/>
+      
+        <TextInput placeholder="Data de nascimento" value={user.data_nascimento} onChangeText={(value) => {setUser({...user, data_nascimento: value})}}/>
+       
       <TextInput placeholder="Senha" value={user.password} onChangeText={(value) => {setUser({...user, password: value})}}/>
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+      
+      <TouchableOpacity onPress={handleCadastro} style={styles.button}>
             <Text >Entrar</Text>
         </TouchableOpacity>
     </View>
