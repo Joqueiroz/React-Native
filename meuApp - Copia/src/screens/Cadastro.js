@@ -27,7 +27,7 @@ export default function Cadastro() {
   return (
 
     <View style={styles.container}>
-      <Text style={styles.title}>Faça Login</Text>
+      <Text style={styles.title}>Faça Cadastro </Text>
       <TextInput 
       style={styles.input}
       placeholder="Email" 
