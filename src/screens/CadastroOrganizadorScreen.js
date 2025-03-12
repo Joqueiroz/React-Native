@@ -6,25 +6,24 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
-  Button
+  Button,
 } from "react-native";
 import api from "../axios/axios";
 
-export default function Cadastro({ navigation }) {
-  const [user, setUser] = useState({
-    name: "",
-    cpf: "",
+export default function CadastroOrganizadorScreen({ navigation }) {
+  const [organizador, setOrganizador] = useState({
+    nome: "",
     email: "",
-    password: "",
-    data_nascimento: "",
+    senha: "",
+    telefone: ""
   });
 
   async function handleCadastro() {
-    await api.postCadastro(user).then(
+    await api.postCadastroOrganizador(organizador).then(
       (response) => {
         console.log(response.data.message);
         Alert.alert("OK", response.data.message);
-        navigation.navigate("Login");
+        navigation.navigate("Home")
       },
       (error) => {
         console.log(error.response.data.error);
@@ -35,56 +34,49 @@ export default function Cadastro({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.tittle}>Faça Cadastro</Text>
+      <Text style={styles.tittle}>Cadastre um Organizador</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome"
-        value={user.name}
+        value={organizador.nome}
         onChangeText={(value) => {
-          setUser({ ...user, name: value });
-        }}
-      ></TextInput>
-      
-      <TextInput
-      style={styles.input}
-        placeholder="Cpf"
-        keyboardType="numeric"
-        value={user.cpf}
-        onChangeText={(value) => {
-          setUser({ ...user, cpf: value });
+        setOrganizador({ ...organizador, nome: value });
         }}
       ></TextInput>
 
       <TextInput
         style={styles.input}
         placeholder="Email"
-        value={user.email}
+        value={organizador.email}
         onChangeText={(value) => {
-          setUser({ ...user, email: value });
+          setOrganizador({ ...organizador, email: value });
+        }}
+      ></TextInput>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Telefone"
+        value={organizador.telefone}
+        onChangeText={(value) => {
+          setOrganizador({ ...organizador, telefone: value });
         }}
       ></TextInput>
       <TextInput
         style={styles.input}
         placeholder="Senha"
-        value={user.password}
+        value={organizador.senha}
         onChangeText={(value) => {
-          setUser({ ...user, password: value });
-        }}
-      ></TextInput>
-            <TextInput
-      style={styles.input}
-        placeholder="Data de nascimento"
-        keyboardType="numeric"
-        value={user.data_nascimento}
-        onChangeText={(value) => {
-          setUser({ ...user, data_nascimento: value });
+          setOrganizador({ ...organizador, senha: value });
         }}
       ></TextInput>
       <TouchableOpacity onPress={handleCadastro} style={styles.button}>
-        <Text>Entrar</Text>
+        <Text>Cadastrar Organizador</Text>
       </TouchableOpacity>
 
-      <Button title="Voltar para Login" onPress={()=> navigation.navigate("Login")}/>
+      <Button
+        title="Voltar para Home"
+        onPress={() => navigation.navigate("Home")}
+      />
     </View>
   );
 }
@@ -110,6 +102,6 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
-    margin: 5
+    margin: 5,
   },
 });

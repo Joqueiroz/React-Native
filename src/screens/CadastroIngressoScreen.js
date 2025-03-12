@@ -10,21 +10,19 @@ import {
 } from "react-native";
 import api from "../axios/axios";
 
-export default function Cadastro({ navigation }) {
-  const [user, setUser] = useState({
-    name: "",
-    cpf: "",
-    email: "",
-    password: "",
-    data_nascimento: "",
+export default function CadastroIngressoScreen({ navigation }) {
+  const [ingresso, setIngresso] = useState({
+    preco: "",
+    tipo: "",
+    fk_id_evento: ""
   });
 
   async function handleCadastro() {
-    await api.postCadastro(user).then(
+    await api.postCadastroIngresso(ingresso).then(
       (response) => {
         console.log(response.data.message);
         Alert.alert("OK", response.data.message);
-        navigation.navigate("Login");
+        navigation.navigate("Home");
       },
       (error) => {
         console.log(error.response.data.error);
@@ -35,56 +33,41 @@ export default function Cadastro({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.tittle}>Faça Cadastro</Text>
+      <Text style={styles.tittle}>Cadastre um Ingresso</Text>
       <TextInput
         style={styles.input}
-        placeholder="Nome"
-        value={user.name}
+        placeholder="Preço do Ingresso"
+        keyboardType="numeric"
+        value={ingresso.preco}
         onChangeText={(value) => {
-          setUser({ ...user, name: value });
+        setIngresso({ ...ingresso, preco: value });
         }}
       ></TextInput>
       
       <TextInput
       style={styles.input}
-        placeholder="Cpf"
-        keyboardType="numeric"
-        value={user.cpf}
+        placeholder="Tipo do Ingreso"
+        value={ingresso.tipo}
         onChangeText={(value) => {
-          setUser({ ...user, cpf: value });
+        setIngresso({ ...ingresso, tipo: value });
         }}
       ></TextInput>
 
       <TextInput
         style={styles.input}
-        placeholder="Email"
-        value={user.email}
-        onChangeText={(value) => {
-          setUser({ ...user, email: value });
-        }}
-      ></TextInput>
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        value={user.password}
-        onChangeText={(value) => {
-          setUser({ ...user, password: value });
-        }}
-      ></TextInput>
-            <TextInput
-      style={styles.input}
-        placeholder="Data de nascimento"
+        placeholder="ID do Evento deste Ingresso"
         keyboardType="numeric"
-        value={user.data_nascimento}
+        value={ingresso.fk_id_evento}
+
         onChangeText={(value) => {
-          setUser({ ...user, data_nascimento: value });
+        setIngresso({ ...ingresso, fk_id_evento: value });
         }}
       ></TextInput>
       <TouchableOpacity onPress={handleCadastro} style={styles.button}>
-        <Text>Entrar</Text>
+        <Text>Cadastrar Ingresso</Text>
       </TouchableOpacity>
 
-      <Button title="Voltar para Login" onPress={()=> navigation.navigate("Login")}/>
+      <Button title="Voltar para Home" onPress={()=> navigation.navigate("Home")}/>
     </View>
   );
 }
