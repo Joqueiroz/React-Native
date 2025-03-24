@@ -100,8 +100,12 @@ const styles = StyleSheet.create({
     borderBottomWidth:1,
     paddingRight:"10",
   },
-  passwordInput:{
-    flex:1,
-    height:40,
-  }
+  passWordInput: {
+    width: "51%",
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    height: 40,
+    left: 110,
+  },
 });
