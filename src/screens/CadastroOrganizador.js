@@ -10,40 +10,38 @@ import {
 } from "react-native";
 import api from "../axios/axios";
 
-export default function CadastroOrganizadorScreen({ navigation }) {
+export default function CadastroOrganizador({ navigation }) {
   const [organizador, setOrganizador] = useState({
     nome: "",
     email: "",
     senha: "",
-    telefone: ""
+    telefone: "",
   });
 
-  async function handleCadastro() {
-    await api.postCadastroOrganizador(organizador).then(
+  async function handleOrganizador() {
+    await api.postOrganizador(organizador).then(
       (response) => {
-        console.log(response.data.message);
+        //console.log(response.data.message);
         Alert.alert("OK", response.data.message);
-        navigation.navigate("Home")
       },
       (error) => {
-        console.log(error.response.data.error);
         Alert.alert("Erro", error.response.data.error);
+        //console.log(error);
       }
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.tittle}>Cadastre um Organizador</Text>
+      <Text style={styles.title}>Faça o cadastro do Organizador</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome"
         value={organizador.nome}
         onChangeText={(value) => {
-        setOrganizador({ ...organizador, nome: value });
+          setOrganizador({ ...organizador, nome: value });
         }}
-      ></TextInput>
-
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -51,16 +49,7 @@ export default function CadastroOrganizadorScreen({ navigation }) {
         onChangeText={(value) => {
           setOrganizador({ ...organizador, email: value });
         }}
-      ></TextInput>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Telefone"
-        value={organizador.telefone}
-        onChangeText={(value) => {
-          setOrganizador({ ...organizador, telefone: value });
-        }}
-      ></TextInput>
+      />
       <TextInput
         style={styles.input}
         placeholder="Senha"
@@ -68,15 +57,19 @@ export default function CadastroOrganizadorScreen({ navigation }) {
         onChangeText={(value) => {
           setOrganizador({ ...organizador, senha: value });
         }}
-      ></TextInput>
-      <TouchableOpacity onPress={handleCadastro} style={styles.button}>
-        <Text>Cadastrar Organizador</Text>
-      </TouchableOpacity>
-
-      <Button
-        title="Voltar para Home"
-        onPress={() => navigation.navigate("Home")}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Telefone"
+        value={organizador.telefone}
+        onChangeText={(value) => {
+          setOrganizador({ ...organizador, telefone: value });
+        }}
+      />
+
+      <TouchableOpacity onPress={handleOrganizador} style={styles.button}>
+        <Text>Cadastrar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -86,22 +79,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
   },
-  tittle: {
-    fontSize: 28,
+  title: {
+    fontSize: 25,
     fontWeight: "bold",
+    color:"blue",
+    marginBottom:25,
   },
   input: {
     width: "100%",
     height: 40,
     borderBottomWidth: 1,
-    marginBottom: 10,
+    marginBottom: 20,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: "red",
+    backgroundColor: "blue",
     padding: 10,
     borderRadius: 5,
-    margin: 5,
+    color: "black",
   },
 });
