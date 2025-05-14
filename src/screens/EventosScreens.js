@@ -9,6 +9,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
+//import * as SecureStore from "expo-secure-store";
 
 export default function EventosScreen() {
   const [eventos, setEventos] = useState([]);
@@ -19,12 +20,11 @@ export default function EventosScreen() {
 
   useEffect(() => {
     getEventos();
-  });
+  }, []);
 
   async function getEventos() {
     try {
       const response = await api.getEventos();
-      console.log(response.data);
       setEventos(response.data.events);
       setLoading(false);
     } catch (error) {
@@ -46,6 +46,7 @@ export default function EventosScreen() {
 
   return (
     <View style={styles.container}>
+      
       <Text style={styles.title}>Eventos Dísponiveis</Text>
       {loading ? (
         <ActivityIndicator size="large" color="red" />
